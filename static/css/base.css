@@ -1,0 +1,74 @@
+body {
+  font-family: 'Roboto', sans-serif; }
+
+p {
+  margin: 0; }
+
+.btn-custom {
+  padding: 10px 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 0;
+  font-size: 20px;
+  font-weight: 700; }
+
+nav.bg-custom {
+  background-color: #ffa323; }
+  nav.bg-custom a.navbar-brand {
+    font-weight: 900;
+    font-style: italic; }
+  nav.bg-custom ul.navbar-nav li.nav-item a.nav-link {
+    color: #000; }
+  nav.bg-custom ul.navbar-nav li.nav-item a.nav-link:hover {
+    color: #666; }
+
+header {
+  padding: 100px;
+  background-color: #000;
+  color: #ddd;
+  text-align: center; }
+  header h1 {
+    margin: 30px;
+    font-weight: 900; }
+  header h3 {
+    font-style: italic;
+    margin: 30px; }
+
+main {
+  padding: 100px;
+  background-color: rgba(66, 66, 66, 0.1); }
+  main h2 {
+    font-weight: 900;
+    font-style: italic;
+    margin-bottom: 50px; }
+  main .row {
+    margin: 10px; }
+    main .row .col-md-4 {
+      padding: 10px;
+      box-sizing: border-box; }
+      main .row .col-md-4 .card {
+        text-align: center;
+        padding: 15px;
+        border-radius: 0;
+        border: 1px solid rgba(0, 0, 0, 0.25); }
+        main .row .col-md-4 .card .card-title {
+          font-weight: 700; }
+        main .row .col-md-4 .card .card-text {
+          font-style: italic;
+          color: #666; }
+
+footer {
+  background: #000;
+  height: 150px;
+  color: #fff;
+  line-height: 150px; }
+
+input[type=submit] {
+  margin-top: 30px; }
+
+.password-warning {
+  margin-top: 10px;
+  color: red;
+  font-weight: 700; }
+
+/*# sourceMappingURL=base.css.map */
