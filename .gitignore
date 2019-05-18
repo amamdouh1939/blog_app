@@ -1,2 +1,4 @@
 __pycache__
 init.sh
+flask_session
+create.sql
