@@ -6,104 +6,33 @@ Homepage
 
 {% block body %}
     <header>
-        <h1 class="text-center">Blog App</h1>
-        <h3 class="text-center">Create and Read Blogs</h3>
-        {% if not session %}
-            <a href="{{ url_for('register') }}" class="btn btn-light btn-custom">Register</a>
-            <a href="{{ url_for('login') }}" class="btn btn-light btn-custom">Login</a>
-        {% endif %}
+        <div class="container">
+            <h1 class="text-center">Blog App</h1>
+            <h3 class="text-center">Create and Read Blogs</h3>
+            {% if not session %}
+                <a href="{{ url_for('register') }}" class="btn btn-light btn-custom">Register</a>
+                <a href="{{ url_for('login') }}" class="btn btn-light btn-custom">Login</a>
+            {% endif %}
+        </div>
     </header>
     <main>
         <div class="container">
             <h2 class="text-center">Our Favorite Blogs</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Lorem, ipsum.
-                            </h5>
-                            <hr>
-                            <p class="card-text">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, nesciunt?....
-                            </p>
-                            <a href="#" class="btn btn-primary">Read More</a>
+            {% for blog in blogs %}
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="blog">
+                            <a class="blog-clickable" href="{{ url_for('blog', blog_id=blog.id) }}">
+                                <h3 class="title">{{ blog.title | safe }}</h3>
+                                <div class="content">{{ blog.content | safe }}</div>
+                            </a>
+                        <h5 class="author">Posted by <a href="#">{{ blog.username }}</a></p>
                         </div>
+                        <hr>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Lorem, ipsum.
-                            </h5>
-                            <hr>
-                            <p class="card-text">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, nesciunt?....
-                            </p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Lorem, ipsum.
-                            </h5>
-                            <hr>
-                            <p class="card-text">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, nesciunt?....
-                            </p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Lorem, ipsum.
-                            </h5>
-                            <hr>
-                            <p class="card-text">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, nesciunt?....
-                            </p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Lorem, ipsum.
-                            </h5>
-                            <hr>
-                            <p class="card-text">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, nesciunt?....
-                            </p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Lorem, ipsum.
-                            </h5>
-                            <hr>
-                            <p class="card-text">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, nesciunt?....
-                            </p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+            <a href="{{ url_for('blogs') }}" class="btn btn-primary float-right">View All Blogs</a>
         </div>
     </main>
 {% endblock %}

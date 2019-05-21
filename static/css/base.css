@@ -1,7 +1,7 @@
 body {
   font-family: 'Roboto', sans-serif; }
 
-p {
+p, ol {
   margin: 0; }
 
 .btn-custom {
@@ -13,26 +13,35 @@ p {
   font-weight: 700; }
 
 nav.bg-custom {
-  background-color: #ffa323; }
+  background-color: #000; }
   nav.bg-custom a.navbar-brand {
     font-weight: 900;
-    font-style: italic; }
+    font-style: italic;
+    color: #fff; }
+  nav.bg-custom a.navbar-brand:hover {
+    color: #666; }
   nav.bg-custom ul.navbar-nav li.nav-item a.nav-link {
-    color: #000; }
+    color: #fff; }
   nav.bg-custom ul.navbar-nav li.nav-item a.nav-link:hover {
     color: #666; }
 
 header {
   padding: 100px;
-  background-color: #000;
-  color: #ddd;
-  text-align: center; }
+  background: url("../images/home-bg.jpg");
+  background-size: cover;
+  background-position-y: 500px;
+  text-align: center;
+  height: 400px; }
   header h1 {
     margin: 30px;
-    font-weight: 900; }
+    font-weight: 900;
+    font-size: 60px; }
   header h3 {
     font-style: italic;
     margin: 30px; }
+  header a.btn {
+    background: #000;
+    color: #fff; }
 
 main {
   padding-top: 100px;
@@ -43,21 +52,14 @@ main {
     font-weight: 900;
     font-style: italic;
     margin-bottom: 50px; }
-  main .row {
-    margin: 10px; }
-    main .row .col-md-4 {
-      padding: 10px;
-      box-sizing: border-box; }
-      main .row .col-md-4 .card {
-        text-align: center;
-        padding: 15px;
-        border-radius: 0;
-        border: 1px solid rgba(0, 0, 0, 0.25); }
-        main .row .col-md-4 .card .card-title {
-          font-weight: 700; }
-        main .row .col-md-4 .card .card-text {
-          font-style: italic;
-          color: #666; }
+  main .blog {
+    padding: 20px; }
+    main .blog a.blog-clickable {
+      display: inline-block;
+      text-decoration: none;
+      color: #000; }
+    main .blog a.blog-clickable:hover {
+      color: #007bff; }
 
 footer {
   background: #000;
@@ -73,5 +75,31 @@ input[type=submit] {
   color: red;
   font-weight: 700;
   height: 30px; }
+
+.blog {
+  padding: 20px; }
+  .blog h3.title {
+    font-weight: 900;
+    font-size: 40px; }
+  .blog h5.author {
+    font-style: italic;
+    text-decoration: underline;
+    font-size: 18px; }
+  .blog .content {
+    min-height: 50px;
+    margin-bottom: 20px;
+    font-size: 25px; }
+  .blog .ratings {
+    height: 20px; }
+  .blog .rating-box {
+    display: inline-block;
+    height: 100%;
+    width: 50px; }
+    .blog .rating-box a i {
+      color: #212529; }
+    .blog .rating-box a:hover i {
+      color: #666; }
+  .blog .blog-actions {
+    margin-top: 20px; }
 
 /*# sourceMappingURL=base.css.map */

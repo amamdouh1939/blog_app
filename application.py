@@ -22,7 +22,8 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-	return render_template("index.html")
+	blogs = db.execute("SELECT blogs.id, title, content, username FROM Blogs FULL OUTER JOIN Users on author_id = users.id ORDER BY (upvotes - downvotes) DESC LIMIT 5").fetchall()	
+	return render_template("index.html", blogs=blogs)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -40,8 +41,6 @@ def register():
 
 			db_username = db.execute("SELECT username FROM Users WHERE username = :username", {"username": username}).fetchone()
 			db_email = db.execute("SELECT username FROM Users WHERE email = :email", {"email": email}).fetchone()
-			print(db_username)
-			print(db_email)
 
 			if (db_username == None and db_email == None):
 				db.execute("INSERT INTO Users (username, email, password, full_name) VALUES (:username, :email, :password, :full_name)",
@@ -89,4 +88,97 @@ def login():
 def logout():
 	if "username" in session:
 		session.pop("username", None)
+		return redirect("/", code=303)
+
+@app.route("/create", methods=["GET", "POST"])
+def create():
+	if "username" in session:
+		if request.method == "GET":
+			return render_template("create.html")
+		elif request.method == "POST":
+			author = session["username"]
+			title = request.form.get("blog-title")
+			content = request.form.get("blog-content")
+			upvotes = 0
+			downvotes = 0
+
+			author_id = db.execute("SELECT id FROM Users WHERE username = :username", {"username": author}).fetchone()[0]
+
+			db.execute("INSERT INTO Blogs (author_id, title, content, upvotes, downvotes) VALUES (:author_id, :title, :content, :upvotes, :downvotes)",
+				{"author_id": author_id, "title": title, "content": content, "upvotes": upvotes, "downvotes": downvotes})
+
+			db.commit()
+
+			return redirect("/", code=303)
+	else:
+		return render_template("error.html", message="You must be logged in to create a blog!!!")
+
+@app.route("/blogs")
+def blogs():
+	blogs = db.execute("SELECT blogs.id, title, content, upvotes, downvotes, username FROM Blogs FULL OUTER JOIN Users ON author_id = users.id ORDER BY (upvotes - downvotes) DESC").fetchall()
+	return render_template("blogs.html", blogs=blogs)
+			
+@app.route("/blog/<int:blog_id>")
+def blog(blog_id):
+	blog = db.execute("SELECT blogs.id, title, content, upvotes, downvotes, username, author_id AS author_id FROM Blogs FULL OUTER JOIN Users ON author_id = users.id WHERE blogs.id = :blog_id", {"blog_id": blog_id}).fetchone()
+	blog_owner = False
+	if "username" in session and session["username"] == blog.username:
+		blog_owner = True
+	
+	elif "username" in session and session["username"] != blog.username:
+		blog_owner = False
+
+	return render_template("blog.html", blog=blog, blog_owner=blog_owner)
+
+@app.route("/blog/<int:blog_id>/upvote")
+def upvote(blog_id):
+	upvotes = db.execute("SELECT upvotes FROM Blogs WHERE id = :blog_id", {"blog_id": blog_id}).fetchone().upvotes
+	upvotes += 1
+	db.execute("UPDATE Blogs SET upvotes = :upvotes WHERE id = :blog_id", {"upvotes": upvotes, "blog_id": blog_id})
+	db.commit()
+
+	return redirect("/blog/" + str(blog_id), code=303)
+
+@app.route("/blog/<int:blog_id>/downvote")
+def downvote(blog_id):
+	downvotes = db.execute("SELECT downvotes FROM Blogs WHERE id = :blog_id", {"blog_id": blog_id}).fetchone().downvotes
+	downvotes += 1
+
+	db.execute("UPDATE Blogs SET downvotes = :downvotes WHERE id = :blog_id", {"downvotes": downvotes, "blog_id": blog_id})
+	db.commit()
+
+	return redirect("/blog/" + str(blog_id), code=303)
+
+
+@app.route("/blog/<int:blog_id>/edit", methods=["GET", "POST"])
+def edit(blog_id):
+	if request.method == "GET":
+		blog = db.execute("SELECT blogs.id, title, content, username FROM Blogs FULL OUTER JOIN Users ON author_id = users.id WHERE blogs.id = :blog_id", {"blog_id": blog_id}).fetchone()
+		blog_author = blog["username"]
+		if session["username"] and session["username"] == blog_author:
+			return render_template("edit.html", blog=blog)
+		else:
+			return render_template("error.html", message="You can't edit another user's blog post!!!")
+	
+	elif request.method == "POST":
+		title = request.form.get("blog-title")
+		content = request.form.get("blog-content")
+
+		db.execute("UPDATE Blogs SET title = :title, content = :content WHERE id = :blog_id", {"title": title, "content": content, "blog_id": blog_id})
+		db.commit()
+
+		return redirect("/blog/" + str(blog_id), code=303)
+
+@app.route("/blog/<int:blog_id>/delete", methods=["GET", "POST"])
+def delete(blog_id):
+	if request.method == "GET":
+		blog = db.execute("SELECT blogs.id, title, username FROM Blogs FULL OUTER JOIN Users ON author_id = users.id WHERE blogs.id = :blog_id", {"blog_id": blog_id}).fetchone()
+		blog_author = blog["username"]
+		if session["username"] and session["username"] == blog_author:
+			return render_template("delete.html", blog = blog)
+	
+	elif request.method == "POST":
+		db.execute("DELETE FROM Blogs WHERE id = :blog_id", {"blog_id": blog_id})
+		db.commit()
+
 		return redirect("/", code=303)

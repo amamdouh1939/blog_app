@@ -6,7 +6,7 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-p {
+p, ol {
     margin: 0;
 }
 
@@ -21,11 +21,15 @@ p {
 
 // Navbar
 nav.bg-custom {
-    background-color: $main_theme_color;  
-    
+    background-color: #000;    
     a.navbar-brand {
         font-weight: 900;
         font-style: italic;
+        color: #fff;
+    }
+
+    a.navbar-brand:hover {
+        color: #666;
     }
 
     ul.navbar-nav {
@@ -33,7 +37,7 @@ nav.bg-custom {
         li.nav-item {
 
             a.nav-link {
-                color: #000;
+                color: #fff;
             }
 
             a.nav-link:hover {
@@ -48,18 +52,26 @@ nav.bg-custom {
 
 header {
     padding: 100px;
-    background-color: $secondary_theme_color;
-    color: #ddd;
+    background: url("../images/home-bg.jpg");
+    background-size: cover;
+    background-position-y: 500px;
     text-align: center;
+    height: 400px;
     
     h1 {
         margin: 30px;
         font-weight: 900;
+        font-size: 60px;
     }
 
     h3 {
         font-style: italic;
         margin: 30px;
+    }
+
+    a.btn {
+        background: #000;
+        color: #fff;
     }
 }
 
@@ -77,27 +89,17 @@ main {
         margin-bottom: 50px;
     }
 
-    .row {
-        margin: 10px;
-        .col-md-4 {
-            padding: 10px;
-            box-sizing: border-box;
+    .blog {
+        padding: 20px;
 
-            .card {
-                text-align: center;
-                padding: 15px;
-                border-radius: 0;
-                border: 1px solid rgba(0, 0, 0, 0.25);
+        a.blog-clickable {
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+        }
 
-                .card-title {
-                    font-weight: 700;
-                }
-
-                .card-text {
-                    font-style: italic;
-                    color: #666;
-                }
-            }
+        a.blog-clickable:hover {
+            color: #007bff;
         }
     }
 }
@@ -118,4 +120,51 @@ input[type=submit] {
     color: red;
     font-weight: 700;
     height: 30px;
+}
+
+.blog {
+    padding: 20px;
+
+    h3.title {
+        font-weight: 900;
+        font-size: 40px;
+    }
+
+    h5.author {
+        font-style: italic;
+        text-decoration: underline;
+        font-size: 18px;
+    }
+
+    .content {
+        min-height: 50px;
+        margin-bottom: 20px;
+        font-size: 25px;
+    }
+
+    .ratings {
+        height: 20px;
+    }
+
+    .rating-box {
+        display: inline-block;
+        height: 100%;
+        width: 50px;
+
+        a {
+            i {
+                color: #212529;
+            }
+        }
+
+        a:hover {
+            i {
+                color: #666;
+            }
+        }
+    }
+
+    .blog-actions {
+        margin-top: 20px;
+    }
 }

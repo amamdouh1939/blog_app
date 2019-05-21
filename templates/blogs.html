@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Blogs
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="container">
+        <h2 class="text-center">Our Blogs</h2>
+        {% for blog in blogs %}
+            <div class="blog">
+                <h3 class="title">{{ blog.title }}</h3>
+                <h5 class="author">Posted by <a href="#">{{ blog.username }}</a></h5>
+                <hr>
+                <div class="content">
+                    {{ blog.content | safe }}
+                </div>
+                <a href="{{ url_for('blog', blog_id=blog.id) }}" class="btn btn-primary">Go to blog</a>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete {{ blog.title }}
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2>Delete {{ blog.title }}</h2>
+            <div class="row">
+                <div class="col-md-8 offset-md-2 text-center">
+                    <h3>Are you sure you want to delete {{ blog.title }}?</h3>
+                    <form action="{{ url_for('delete', blog_id=blog.id) }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <a href="{{ url_for('blog', blog_id=blog.id)}}" class="btn btn-success">No</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ blog.title }}
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="text-center">{{ blog.title }}</h2>
+            <div class="blog">
+                <h3 class="title">{{ blog.title }}</h3>
+                <h5 class="author">Posted by <a href="#">{{ blog.username }}</a></h5>
+                <hr>
+                <div class="content">
+                    {{ blog.content | safe }}
+                </div>
+                <div class="ratings">
+                    <div class="rating-box"><a href="{{ url_for('upvote', blog_id=blog.id) }}"><i class="fas fa-thumbs-up"></i></a> {{ blog.upvotes }}</div>
+                    <div class="rating-box"><a href="{{ url_for('downvote', blog_id=blog.id) }}"><i class="fas fa-thumbs-down"></i></a> {{ blog.downvotes }}</div>
+                </div>
+                {% if blog_owner %}
+                <div class="blog-actions">
+                    <a href="{{ url_for('edit', blog_id=blog.id) }}" class="btn btn-warning">Edit Blog</a>
+                    <a href="{{ url_for('delete', blog_id=blog.id) }}" class="btn btn-danger">Delete Blog</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
