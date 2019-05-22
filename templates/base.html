@@ -34,6 +34,11 @@
                             <a href="{{ url_for('login') }}" class="nav-link">Login</a>
                         </li>
                         {% else %}
+                        <span class="navbar-text">
+                            {% if username %}
+                                Logged in as {{ username }}
+                            {% endif %}
+                        </span>
                         <li class="nav-item">
                             <a href="{{ url_for('create') }}" class="nav-link">Create</a>
                         </li>

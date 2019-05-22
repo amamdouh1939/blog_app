@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ user.username }}'s Profile Page
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <h2 class="text-center">{{ user.username }}'s Profile Page</h2>
+            <div class="user-info">
+                <h4>Username: {{ user.username }}</h4>
+                <h4>Full Name: {{ user.full_name }}</h4>
+                <h4>Email: {{ user.email }}</h4>
+            </div>
+            <hr>
+            <div class="blogs">
+                <h3>Blogs by {{ user.username }}</h3>
+                {% if blogs %}
+                <ul>
+                    {% for blog in blogs %}
+                    <li><a href="{{ url_for('blog', blog_id=blog.id) }}">{{ blog.title }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <h4>{{ user.username }} hasn't posted any blogs <strong>YET!!!!</strong></h4>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

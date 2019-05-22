@@ -10,7 +10,7 @@
             <h2 class="text-center">{{ blog.title }}</h2>
             <div class="blog">
                 <h3 class="title">{{ blog.title }}</h3>
-                <h5 class="author">Posted by <a href="#">{{ blog.username }}</a></h5>
+                <h5 class="author">Posted by <a href="{{ url_for('user', author_id=blog.author_id) }}">{{ blog.username }}</a></h5>
                 <hr>
                 <div class="content">
                     {{ blog.content | safe }}

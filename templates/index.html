@@ -26,7 +26,7 @@ Homepage
                                 <h3 class="title">{{ blog.title | safe }}</h3>
                                 <div class="content">{{ blog.content | safe }}</div>
                             </a>
-                        <h5 class="author">Posted by <a href="#">{{ blog.username }}</a></p>
+                        <h5 class="author">Posted by <a href="{{ url_for('user', author_id=blog.author_id) }}">{{ blog.username }}</a></p>
                         </div>
                         <hr>
                     </div>

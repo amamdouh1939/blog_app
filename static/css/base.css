@@ -20,6 +20,8 @@ nav.bg-custom {
     color: #fff; }
   nav.bg-custom a.navbar-brand:hover {
     color: #666; }
+  nav.bg-custom ul.navbar-nav span.navbar-text {
+    color: #fff; }
   nav.bg-custom ul.navbar-nav li.nav-item a.nav-link {
     color: #fff; }
   nav.bg-custom ul.navbar-nav li.nav-item a.nav-link:hover {
